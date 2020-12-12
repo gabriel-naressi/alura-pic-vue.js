@@ -1,35 +1,41 @@
 <template>
-  <div id="app">
-    <!-- Chamado de interpolação. É um tipo de data binding. -->
-    {{title}}
-    <!-- 
-      Dentro de atributos, a interpolação não é permitida, por isso precisamos do v-bind. 
-      O v-bind é a interpolação dentro de um atributo.
-    -->
-    <!-- <img v-bind:src="foto.url" v-bind:alt="foto.titulo"> !-->
-    <!-- O v-bind pode ser omitido, deixando o código mais enxuto: -->
-    <img v-for="foto in fotos" :src="foto.url" :alt="foto.titulo">
+  <div class="corpo">
+    <meu-menu :rotas="routes" />
+    <transition name="pagina">
+      <!-- Serve para indicar para o template da página principal da aplicação o local no qual os demais componentes 
+        carregados através de rotas devem ser renderizados. -->
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
+
+import { routes } from './routes'; 
+import Menu from './components/shared/menu/Menu.vue';
+
 export default {
+  components: {
+    'meu-menu': Menu
+  },
   data() {
-    return {
-      title: 'Alurapic',
-      fotos:[]
-    }
-  }, 
-  //Lifecycle hooks: https://vuejs.org/v2/api/#Options-Lifecycle-Hooks
-  //Função que é chamada quando o objeto é criado
-  created() {
-    this.$http.get('http://localhost:3000/v1/fotos')
-      // response.json também é uma promise.
-      .then(response => response.json())
-      .then(responseData => this.fotos = responseData)
+    return { routes : routes }
   }
 }
 </script>
 
 <style>
+  .corpo {
+    font-family: Helvetica, sans-serif;
+    margin: 0 auto;
+    width: 96%;
+  }
+
+  .pagina-enter, .pagina-leave-active {
+    opacity: 0;
+  }
+
+  .pagina-enter-active, .pagina-leave-active {
+    transition: opacity .4s;
+  }
 </style>

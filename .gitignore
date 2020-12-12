@@ -1,8 +1,12 @@
 .DS_Store
+.DS_Store?
 node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+
+.dpl/
+.tmp
 
 # Editor directories and files
 .idea
