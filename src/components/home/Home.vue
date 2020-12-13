@@ -48,6 +48,8 @@
               tipo="button"
               rotulo="REMOVER"
               @botaoAtivado="remove($event, foto)"
+              :confirmacao="false"
+              estilo="perigo"
             />
           </meu-painel>
         </div>
