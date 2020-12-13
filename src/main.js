@@ -10,7 +10,7 @@ import { routes } from './routes';
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
-const router = new VueRouter({ 
+const router = new VueRouter({
   routes: routes,
   //Elimina o uso de # na url. Para isso funcionar, o servidor precisa devolver sempre uma página index.html,
   //independentemente da url que estiver sendo acessada. O servidor utilizado para este projeto já faz isso.

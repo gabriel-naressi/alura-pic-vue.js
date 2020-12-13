@@ -1,15 +1,13 @@
 <template>
-    <h2 class="centralizado"> Cadastro </h2>
+  <h2 class="centralizado">Cadastro</h2>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
-<style> 
- .centralizado {
-    text-align: center;
- }
+<style>
+.centralizado {
+  text-align: center;
+}
 </style>
