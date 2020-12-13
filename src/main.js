@@ -8,7 +8,7 @@ import VueRouter from 'vue-router';
 import { routes } from './routes';
 
 //Queremos que esse objeto seja carregado para a diretiva ser registrada.
-import './directives/Transform';
+import './directives/transform';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);

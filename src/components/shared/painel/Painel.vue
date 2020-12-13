@@ -79,4 +79,8 @@ componente serão afetados. Isso é uma boa prática -->
 .painel-fade-leave-active {
   transition: opacity 0.4s;
 }
+
+.painel-conteudo {
+  overflow: hidden;
+}
 </style>

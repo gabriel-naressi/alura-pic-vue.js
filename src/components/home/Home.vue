@@ -33,12 +33,17 @@
                 <img v-bind:src="foto.url" v-bind:alt="foto.titulo">
               2. O v-bind pode ser substituído por :, deixando o código mais enxuto:
                 <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
+              3. Posso passar valores para uma diretiva através de objetos, ou usando modifiers.
+                Como objeto ficaria assim: v-meu-transform="{ animate: true, incremento: 15 }"
+                Com modifier, o exemplo esta na linha 44.
+              4. Posso passar modifiers para uma diretiva, assim:
+                v-meu-transform.animate="15" ou v-meu-transform.animate.reverse="15"
             -->
 
             <imagem-responsiva
               :url="foto.url"
               :titulo="foto.titulo"
-              v-meu-transform="{ incremento: 15, animate: true }"
+              v-meu-transform:scale.animate="1.2"
             />
             <!--
               1. O dois pontos foi omitido neste caso porque não estamos fazendo data binding. Em outras palavras,
@@ -67,12 +72,18 @@ import ImagemResponsivaVue from "../shared/imagem-responsiva/ImagemResponsiva.vu
 import Painel from "../shared/painel/Painel.vue";
 import Botao from "../shared/botao/Botao.vue";
 
+import transform from "../../directives/transform";
+
 export default {
   //Import de componentes. A chave do objeto é o "apelido" do componente.
   components: {
     "meu-painel": Painel,
     "imagem-responsiva": ImagemResponsivaVue,
     "meu-botao": Botao,
+  },
+  // Diretivas específicas para este componente
+  directives: {
+    "meu-transform": transform,
   },
   //Fonte de dados que se deseja controlar (state).
   data() {
