@@ -2,6 +2,7 @@
   <div>
     <!-- Chamado de interpolação. É um tipo de data binding. -->
     <h1 class="centralizado">{{ title }}</h1>
+    <p v-show="mensagem">{{ mensagem }}</p>
     <!--
 
       v-on = @
@@ -71,8 +72,8 @@
 import ImagemResponsivaVue from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Painel from "../shared/painel/Painel.vue";
 import Botao from "../shared/botao/Botao.vue";
-
 import transform from "../../directives/transform";
+import FotoService from "../../domain/foto/FotoService";
 
 export default {
   //Import de componentes. A chave do objeto é o "apelido" do componente.
@@ -91,17 +92,22 @@ export default {
       title: "Alurapic",
       fotos: [],
       filtro: "",
+      mensagem: "",
     };
   },
   //Essa é uma das funções lifecycle hooks, ela é chamada quando o objeto é criado.
   //Para saber mais: https://vuejs.org/v2/api/#Options-Lifecycle-Hooks
   created() {
+    /*
     this.$http
-      .get("http://localhost:3000/v1/fotos")
+      .get("v1/fotos")
       // response.json também é uma promise.
       .then((response) => response.json())
       //Altero meu conjunto de dados fotos (definido na linha 49)
       .then((responseData) => (this.fotos = responseData));
+    */
+    this.service = new FotoService(this.$resource);
+    this.service.lista().then((responseData) => (this.fotos = responseData));
   },
   //Definição de métodos onde posso isolar alguma lógica específica que vai acontecer com um conjunto de dados.
   computed: {
@@ -118,8 +124,24 @@ export default {
   methods: {
     remove($event, foto) {
       //Exemplo de exibição de um dado que foi enviado pelo componente filho
-      alert($event);
-      alert("Remover a foto: " + foto.titulo);
+      //alert($event);
+      //alert("Remover a foto: " + foto.titulo);
+      this.service.apaga(foto._id).then(
+        () => {
+          /*
+            Para sincronizar a remoção da foto na tela, apenas removemos ela da lista que esta sendo exibida.
+            Poderíamos fazer uma requisição novamente, mas sabemos que quanto mais pudermos evitar requisições, mais rápida
+            a aplicação fica.
+          */
+          const index = this.fotos.indexOf(foto);
+          this.fotos.splice(index, 1);
+          this.mensagem = "Foto removida com sucesso";
+        },
+        (err) => {
+          console.error(err);
+          this.mensagem = "Não foi possível remover a foto";
+        }
+      );
     },
   },
 };

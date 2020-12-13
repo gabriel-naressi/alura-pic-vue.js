@@ -55,8 +55,12 @@
 import ImagemResponsiva from "../shared/imagem-responsiva/ImagemResponsiva.vue";
 import Botao from "../shared/botao/Botao.vue";
 import Foto from "../../domain/foto/Foto";
+import FotoService from "../../domain/foto/FotoService";
 
 export default {
+  created() {
+    this.service = new FotoService(this.$resource);
+  },
   components: {
     "imagem-responsiva": ImagemResponsiva,
     "meu-botao": Botao,
@@ -68,8 +72,21 @@ export default {
   },
   methods: {
     grava() {
-      //O this é o objeto que esta sendo controlado na função data acima
-      this.$http.post("http://localhost:3000/v1/fotos", this.foto).then(
+      /*
+        1. O this é o objeto que esta sendo controlado na função data acima
+
+        2. Aprendemos a utilizar $http para consumir API's. No entanto, $http é um objeto especializado apenas na
+        realização de requisições assíncronas ou se você preferir, requisições Ajax. Contudo, há um outro objeto mais
+        especializado focado no consumo de API's que seguem o Padrão REST. É o $resource.
+
+        Exemplo de chamada com o $http:
+
+        this.$http.post("v1/fotos", this.foto).then(
+          () => (this.foto = new Foto()),
+          (err) => console.log(error)
+        );
+      */
+      this.service.cadastra(this.foto).then(
         () => (this.foto = new Foto()),
         (err) => console.log(error)
       );
