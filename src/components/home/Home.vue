@@ -38,7 +38,7 @@
             <imagem-responsiva
               :url="foto.url"
               :titulo="foto.titulo"
-              v-meu-transform
+              v-meu-transform="{ incremento: 15, animate: true }"
             />
             <!--
               1. O dois pontos foi omitido neste caso porque não estamos fazendo data binding. Em outras palavras,
