@@ -35,7 +35,11 @@
                 <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
             -->
 
-            <imagem-responsiva :url="foto.url" :titulo="foto.titulo" />
+            <imagem-responsiva
+              :url="foto.url"
+              :titulo="foto.titulo"
+              v-meu-transform
+            />
             <!--
               1. O dois pontos foi omitido neste caso porque não estamos fazendo data binding. Em outras palavras,
                 esses dados não estão sendo controlados na função data().
